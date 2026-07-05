@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the accompanying paper by J. Chen et al. and this software release."
+title: "WW3-ML-Snl: machine-learning surrogate for the nonlinear four-wave interaction in WAVEWATCH III"
+version: "1.0"
+abstract: >-
+  A machine-learning surrogate for the nonlinear four-wave interaction (S_nl)
+  coupled into WAVEWATCH III v7.14 as the NL6 source term and evaluated at run
+  time through ONNX Runtime. Includes three trained surrogates: a base
+  depth-scaled network (ML), a lightweight depth-scaled network (ML-Lite), and a
+  depth-conditioned finite-depth network (ML-FiLM).
+authors:
+  - family-names: Chen
+    given-names: Jialun
+  - family-names: Adcock
+    given-names: Thomas A. A.
+  - family-names: Liu
+    given-names: Qingxiang
+  - family-names: Clark
+    given-names: Ronald
+  - family-names: Tang
+    given-names: Tianning
+license: "See LICENSE.md (WAVEWATCH III license)"
