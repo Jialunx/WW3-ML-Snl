@@ -20,9 +20,18 @@ and uses a two-input (spectrum + depth) module, provided in
 
 ## Quick start
 
-Requires a Fortran and C compiler, CMake, MPI, and NetCDF. The block below
-downloads ONNX Runtime, builds with the ML surrogate, and runs the bundled
-example (`example/`) with ML-Lite:
+Requires a Fortran and C compiler, CMake, MPI, and NetCDF.
+
+**One command** (clone, then run the helper script — downloads ONNX Runtime,
+builds, and runs the example with ML-Lite):
+
+```sh
+git clone https://github.com/Jialunx/WW3-ML-Snl.git
+cd WW3-ML-Snl
+bash quickstart.sh          # ML-Lite;  MODEL=unet_faster_24x40_base32_deep.onnx bash quickstart.sh  for ML
+```
+
+Or run the steps manually:
 
 ```sh
 # 1. get the code
