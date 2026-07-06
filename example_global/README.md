@@ -16,22 +16,35 @@ networks); ML-FiLM is for idealized finite-depth cases, not global runs.
 
 ## Run it
 
-Copy-paste this whole block (installs prerequisites, gets the code, downloads
-the wind, builds, and runs ML-Lite):
+The wind download needs a free Copernicus CDS account. Create one at
+<https://cds.climate.copernicus.eu>, then put your key in `~/.cdsapirc`:
+```
+url: https://cds.climate.copernicus.eu/api
+key: <your-api-key>
+```
+
+Then copy-paste this block (prerequisites, code, wind, build, run ML-Lite):
 
 ```sh
-sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git python3-pip
-git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example_global
-pip install cdsapi xarray netcdf4
-python download_era5_wind.py             # needs a free Copernicus CDS account
-bash run_global.sh                       # MODEL=unet_faster_24x40_base32_deep.onnx bash run_global.sh  for ML
+sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git python3-venv
+git clone https://github.com/Jialunx/WW3-ML-Snl.git
+cd WW3-ML-Snl/example_global
+
+# get the wind (installs the Python deps in a virtualenv; Ubuntu blocks system pip)
+python3 -m venv ~/cds-venv
+~/cds-venv/bin/pip install cdsapi xarray netcdf4
+~/cds-venv/bin/python download_era5_wind.py     # -> wind_1deg_global_20250101to15.nc
+
+# build (if needed) and run with ML-Lite
+bash run_global.sh                              # MODEL=unet_faster_24x40_base32_deep.onnx bash run_global.sh  for ML
 ```
 
 `run_global.sh` downloads ONNX Runtime, builds if not already built, then runs
 `ww3_grid -> ww3_prnc -> ww3_shel`. It cold-starts from calm and spins up under
 the wind; field output is written to `ww3.*.nc`.
 
-Already have the repo? Just `cd example_global && python download_era5_wind.py && bash run_global.sh`.
+Already cloned? `cd example_global && ~/cds-venv/bin/python download_era5_wind.py && bash run_global.sh`.
+If the clone says the folder already exists, update it instead: `cd WW3-ML-Snl && git pull`.
 
 Or run the stages manually. You must **build first**, else the `mpirun` lines
 fail with "could not access or execute ../build/bin/ww3_grid".
