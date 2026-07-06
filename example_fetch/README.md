@@ -8,13 +8,13 @@ grid is 24 x 40 (`f0 = 0.03453 Hz`, ratio 1.1), fixed by the networks.
 
 ```sh
 sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git
-git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example && bash run.sh
+git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example_fetch && bash run.sh
 ```
 
 `run.sh` gets ONNX Runtime, builds if needed, and runs ML-Lite. Ends with
 `End of program` and writes `ww3.*` output here. For ML:
 `MODEL=unet_faster_24x40_base32_deep.onnx bash run.sh`. Already cloned:
-`cd example && bash run.sh`.
+`cd example_fetch && bash run.sh`.
 
 ## Files
 - `ww3_grid.inp` — grid + spectral definition
@@ -34,7 +34,7 @@ export ORT=$PWD/onnxruntime-linux-x64-${ORT_VER}
 cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT && cmake --build build -j
 
 # run (this folder)
-cd example
+cd example_fetch
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
 mpirun -np 1 ../build/bin/ww3_grid

@@ -30,7 +30,7 @@ cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT="$ORT"
 cmake --build build -j
 
 # 3. run the example with the chosen model
-cd example
+cd example_fetch
 export LD_LIBRARY_PATH="$ORT/lib:${LD_LIBRARY_PATH:-}"
 export WW3_SNL_ONNX_MODEL="$ROOT/ml_models/$MODEL"
 echo ">> running example with $MODEL"

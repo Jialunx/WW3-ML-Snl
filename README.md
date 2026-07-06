@@ -48,7 +48,7 @@ cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT
 cmake --build build -j
 
 # 4. run the example with ML-Lite
-cd example
+cd example_fetch
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
 mpirun -np 1 ../build/bin/ww3_grid
@@ -77,6 +77,8 @@ WW3-ML-Snl-v1.0/
   model/bin/switch_NL6_ML                    compile switch enabling NL6
   ml_models/                                 the three trained ONNX weights + training notebooks
   finite_depth_film/                         drop-in files for the ML-FiLM build
+  example_fetch/                             ready-to-run local fetch case
+  example_global/                            ready-to-run global case (real ERA5 wind bundled)
   LICENSE.md                                 WAVEWATCH III license
 ```
 
