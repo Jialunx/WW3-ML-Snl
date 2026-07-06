@@ -30,8 +30,6 @@ from the same ERA5 spin-up state as the paper** (`restart_ic_20250101.ww3`, vali
 field. Output goes to `ww3.*.nc`. Set `WARM=0 bash run_global.sh` to cold-start
 from calm instead. If the repo is already cloned, `cd WW3-ML-Snl && git pull` first.
 
-![Global Hs, ML-Lite](../media/hs_global_mllite.gif)
-
 ## Manual build and run
 
 ```sh
