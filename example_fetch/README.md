@@ -44,3 +44,19 @@ mpirun -np 1 ../build/bin/ww3_shel
 
 The ST4 table (`ST4TABUHF2.bin`) is generated on the first run. The FiLM model
 needs the finite-depth build (see `../finite_depth_film/`).
+
+## Output
+
+Raw output (`out_grd.ww3`, `out_pnt.ww3`) is written here. Convert to NetCDF
+(keep `WW3_SNL_ONNX_MODEL` and `LD_LIBRARY_PATH` set, as `ww3_ounf`/`ww3_ounp`
+also load the surrogate):
+
+```sh
+mpirun -np 1 ../build/bin/ww3_ounf                 # bulk fields -> ww3.*.nc (HS, T02, ...)
+
+cp ww3_ounp_src.nml ww3_ounp.nml
+mpirun -np 1 ../build/bin/ww3_ounp                 # source terms -> ww3.*_src.nc
+```
+
+`ww3.*_src.nc` holds `snl` (the ML `S_nl`), `sin`, `sds`, `stt`, and `efth`,
+each as `F(f,theta)` at the `points.list` stations.

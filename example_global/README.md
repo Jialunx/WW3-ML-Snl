@@ -60,3 +60,19 @@ then point `FILE%FILENAME` in `ww3_prnc.nml` at it and widen `FORCING%TIMESTOP`.
 ## Notes
 - Switch model via `WW3_SNL_ONNX_MODEL`, no rebuild.
 - Cost scales with grid: a 1 h global step took ~2.5 min on 4 MPI ranks.
+
+## Output
+
+Raw output (`out_grd.ww3`, `out_pnt.ww3`) is written here. Convert to NetCDF
+(keep `WW3_SNL_ONNX_MODEL` and `LD_LIBRARY_PATH` set, as `ww3_ounf`/`ww3_ounp`
+also load the surrogate):
+
+```sh
+mpirun -np 1 ../build/bin/ww3_ounf                 # bulk fields -> ww3.*.nc (HS, T02, ...)
+
+cp ww3_ounp_src.nml ww3_ounp.nml
+mpirun -np 1 ../build/bin/ww3_ounp                 # source terms -> ww3.*_src.nc
+```
+
+`ww3.*_src.nc` holds `snl` (the ML `S_nl`), `sin`, `sds`, `stt`, and `efth`,
+each as `F(f,theta)` at the `points.list` stations.
