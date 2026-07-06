@@ -183,3 +183,6 @@ build_film/
 *.mod
 __pycache__/
 .ipynb_checkpoints/
+
+# bundled real ERA5 wind for the global example (keep despite *.nc ignore)
+!example_global/wind_example.nc
