@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build (if needed) and run the realistic global case with ML-Lite.
-# Just:  cd example_global && python download_era5_wind.py && bash run_global.sh
+# Just:  cd example_global && ~/cds-venv/bin/python download_era5_wind.py && bash run_global.sh
 set -euo pipefail
 HERE=$(cd "$(dirname "$0")" && pwd); ROOT=$(cd "$HERE/.." && pwd); cd "$HERE"
 
@@ -12,8 +12,9 @@ for t in gfortran cmake mpirun curl; do command -v "$t" >/dev/null || {
 
 # 1. wind must be downloaded first (needs a free CDS account)
 [ -f wind_1deg_global_20250101to15.nc ] || {
-  echo "Wind file missing. Get it first (free Copernicus CDS account):"
-  echo "  pip install cdsapi xarray netcdf4  &&  python download_era5_wind.py"
+  echo "Wind file missing. Get it first (free CDS account + key in ~/.cdsapirc):"
+  echo "  python3 -m venv ~/cds-venv && ~/cds-venv/bin/pip install cdsapi xarray netcdf4"
+  echo "  ~/cds-venv/bin/python download_era5_wind.py"
   exit 1; }
 
 # 2. ONNX Runtime (download if absent)
