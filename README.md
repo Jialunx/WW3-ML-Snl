@@ -32,7 +32,7 @@ builds, and runs a 1-hour global example with ML-Lite):
 ```sh
 git clone https://github.com/Jialunx/WW3-ML-Snl.git
 cd WW3-ML-Snl
-bash quickstart.sh          # ML-Lite;  MODEL=unet_faster_24x40_base32_deep.onnx bash quickstart.sh  for ML
+bash quickstart.sh
 ```
 
 Or run the steps manually:
