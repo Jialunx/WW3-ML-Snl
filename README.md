@@ -18,6 +18,13 @@ share one single-input module. ML-FiLM emulates the finite-depth WRT directly
 and uses a two-input (spectrum + depth) module, provided in
 `finite_depth_film/` as a drop-in variant.
 
+![Global significant wave height from the ML-Lite S_nl surrogate in WAVEWATCH III](media/hs_global_mllite.gif)
+
+*Global significant wave height from the ML-Lite `S_nl` surrogate running inside
+WAVEWATCH III, warm-started from the paper's ERA5 spin-up state (January 2025).
+On an 8-core desktop this is ~2.5x the cost of DIA and ~53x faster than the WRT
+reference, at WRT-level accuracy.*
+
 ![Build and run the ML surrogate from a clean machine](demo.gif)
 
 *Demo: WAVEWATCH III on a 1-degree global grid, a 1-hour run with the ML-Lite surrogate.*
@@ -66,8 +73,20 @@ model needs the finite-depth build (see `finite_depth_film/`).
 
 The global example (`example_global/`) uses a real 1-degree grid with a bundled
 ERA5 wind field, and can run from a 1-hour test up to a multi-day period (set
-`DOMAIN%STOP` in `ww3_shel.nml`). For a lighter local check, `example_fetch/`
-runs a small fetch-limited basin with homogeneous wind in about 30 seconds.
+`DOMAIN%STOP` in `ww3_shel.nml`). By default it warm-starts from the paper's ERA5
+spin-up initial condition (`restart_ic_20250101.ww3`, auto-downloaded), so the
+first output is an already-developed global wave field rather than a calm sea;
+this is the run shown in the animation above. Set `WARM=0 bash run_global.sh` to
+cold-start from calm instead. For a lighter local check, `example_fetch/` runs a
+small fetch-limited basin with homogeneous wind in about 30 seconds.
+
+Measured cost for one simulated hour of the global run (8-core desktop):
+
+| `S_nl` method | Wall time / sim-hour | vs DIA |
+|---------------|----------------------|--------|
+| DIA (`NL1`)      | ~39 s   | 1.0x   |
+| ML-Lite (`NL6`)  | ~98 s   | 2.5x   |
+| WRT (`NL2`)      | ~5170 s | 131x   |
 
 ## Output
 

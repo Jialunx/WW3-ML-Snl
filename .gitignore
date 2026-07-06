@@ -186,3 +186,14 @@ __pycache__/
 
 # bundled real ERA5 wind for the global example (keep despite *.nc ignore)
 !example_global/wind_example.nc
+
+# WW3-ML-Snl: local ONNX Runtime download and example run artifacts (never commit)
+onnxruntime-linux-x64-*/
+example_global/*.ww3
+example_fetch/*.ww3
+example_global/*.nml.log
+example_fetch/*.nml.log
+example_global/log.ww3
+example_fetch/log.ww3
+example_global/ST4TABUHF2.bin
+example_fetch/ST4TABUHF2.bin

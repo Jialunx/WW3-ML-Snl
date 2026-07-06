@@ -26,6 +26,20 @@ if [ ! -x "$ROOT/build/bin/ww3_shel" ]; then
   cmake --build "$ROOT/build" -j
 fi
 
+# 3b. warm-start initial condition (the paper's ERA5 spin-up state, valid
+#     2025-01-01 00:00 UTC).  ww3_shel picks up restart.ww3 automatically if it
+#     is present; without it the run cold-starts from a calm sea.  Set WARM=0 to
+#     force a cold start, or IC_URL=... to point at a different restart.
+WARM=${WARM:-1}
+IC_URL=${IC_URL:-https://github.com/Jialunx/WW3-ML-Snl/releases/download/v1.1/restart_ic_20250101.ww3}
+if [ "$WARM" = 1 ] && [ ! -f restart.ww3 ]; then
+  echo ">> fetching warm-start IC (ERA5 spin-up, 2025-01-01 00:00 UTC)"
+  if ! curl -fL "$IC_URL" -o restart.ww3; then
+    echo "!! IC download failed - falling back to a cold start from calm."
+    rm -f restart.ww3
+  fi
+fi
+
 # 4. run with ML-Lite (MODEL=unet_faster_24x40_base32_deep.onnx for ML)
 MODEL=${MODEL:-unet_faster_24x40_base16.onnx}; NP=${NP:-4}
 export LD_LIBRARY_PATH="$ORT/lib:${LD_LIBRARY_PATH:-}"

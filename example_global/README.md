@@ -11,6 +11,7 @@ ML-FiLM is for finite-depth idealized cases only.
 - `ww3_prnc.nml`, `ww3_shel.nml`, `points.list`: run configuration
 - `run_global.sh`: build-and-run helper
 - `download_era5_wind.py`: optional, for the full multi-day ERA5 wind
+- `restart.ww3`: warm-start IC (auto-downloaded by `run_global.sh`; the paper's 2025-01-01 spin-up)
 
 ## Run
 
@@ -22,9 +23,14 @@ git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example_glo
 bash run_global.sh          # ML-Lite; MODEL=unet_faster_24x40_base32_deep.onnx for ML
 ```
 
-`run_global.sh` gets ONNX Runtime, builds if needed, then runs
-`ww3_grid -> ww3_prnc -> ww3_shel`. Output goes to `ww3.*.nc`.
-If the repo is already cloned, `cd WW3-ML-Snl && git pull` first.
+`run_global.sh` gets ONNX Runtime, builds if needed, fetches the paper's spin-up
+initial condition, then runs `ww3_grid -> ww3_prnc -> ww3_shel`. It **warm-starts
+from the same ERA5 spin-up state as the paper** (`restart_ic_20250101.ww3`, valid
+2025-01-01 00:00 UTC), so the first output is an already-developed global wave
+field. Output goes to `ww3.*.nc`. Set `WARM=0 bash run_global.sh` to cold-start
+from calm instead. If the repo is already cloned, `cd WW3-ML-Snl && git pull` first.
+
+![Global Hs, ML-Lite](../media/hs_global_mllite.gif)
 
 ## Manual build and run
 
@@ -40,9 +46,10 @@ cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT && cmake --build build -j
 cd example_global
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
+curl -fL https://github.com/Jialunx/WW3-ML-Snl/releases/download/v1.1/restart_ic_20250101.ww3 -o restart.ww3  # warm-start IC (optional)
 mpirun -np 1 ../build/bin/ww3_grid
 mpirun -np 1 ../build/bin/ww3_prnc
-mpirun -np 4 ../build/bin/ww3_shel
+mpirun -np 4 ../build/bin/ww3_shel     # warm-starts from restart.ww3 if present, else cold start
 ```
 
 ## Period
