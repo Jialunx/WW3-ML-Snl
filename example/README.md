@@ -7,18 +7,19 @@ run for 1 hour. The spectral grid is 24 directions x 40 frequencies
 
 ## Run it
 
-Install the prerequisites once:
+Copy-paste this whole block (installs prerequisites, gets the code, builds, and
+runs ML-Lite — no navigating or path editing needed):
+
 ```sh
-sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl
+sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git
+git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example && bash run.sh
 ```
-Then, from this folder:
-```sh
-bash run.sh
-```
+
 `run.sh` downloads ONNX Runtime, builds the model (if not already built), and
-runs the case with ML-Lite. Use `MODEL=unet_faster_24x40_base32_deep.onnx bash run.sh`
-for ML. A successful run ends with `End of program` and writes `ww3.*` outputs
-here.
+runs the case with ML-Lite. Ends with `End of program` and writes `ww3.*`
+outputs here. Use `MODEL=unet_faster_24x40_base32_deep.onnx bash run.sh` for ML.
+
+Already have the repo? Just `cd example && bash run.sh`.
 
 Files:
 - `ww3_grid.inp`  grid + spectral definition
