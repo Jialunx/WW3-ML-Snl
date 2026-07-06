@@ -67,6 +67,32 @@ about the surrogate changes; only the grid and forcing do. See
 `example_global/` for a ready-to-run realistic global case (1-hour test up to a
 one-month run, ML or ML-Lite).
 
+## Output
+
+`ww3_shel` writes raw binary (`out_grd.ww3`, `out_pnt.ww3`) in the run
+directory. Convert to NetCDF from the same folder with `ww3_ounf` / `ww3_ounp`
+(in `build/bin/`):
+
+```sh
+mpirun -np 1 ../build/bin/ww3_ounf    # gridded fields -> ww3.YYYYMM.nc
+mpirun -np 1 ../build/bin/ww3_ounp    # point spectra  -> ww3.YYYYMM_spec.nc
+```
+
+The gridded file holds the bulk parameters listed in `FIELD%LIST` in
+`ww3_shel.nml` (here `HS T02 FP DIR SPR DPT`):
+
+| Field | Meaning | Unit |
+|-------|---------|------|
+| `HS`  | significant wave height | m |
+| `T02` | mean period (m0/m2) | s |
+| `FP`  | peak frequency | Hz |
+| `DIR` | mean direction | deg |
+| `SPR` | directional spread | deg |
+| `DPT` | water depth | m |
+
+The point file (`ww3.*_spec.nc`) holds the 2-D spectrum `F(f,theta)` at the
+stations in `points.list`.
+
 ## Repository layout
 
 ```
