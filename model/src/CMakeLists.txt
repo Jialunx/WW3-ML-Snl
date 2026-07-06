@@ -67,7 +67,7 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES "^(Intel)$")
   endif()
 
 elseif(CMAKE_Fortran_COMPILER_ID MATCHES "^(GNU)$")
-  set(compile_flags -g -fno-second-underscore -ffree-line-length-none)
+  set(compile_flags -g -fno-second-underscore -ffree-line-length-none -ffpe-summary=none)
   set(compile_flags_release -O3)
   set(compile_flags_debug -Wall -fcheck=all -ffpe-trap=invalid,zero,overflow -frecursive -fbacktrace)
   
