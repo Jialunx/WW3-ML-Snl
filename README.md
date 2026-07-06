@@ -5,7 +5,7 @@ interaction (`S_nl`) into **WAVEWATCH III v7.14**. The surrogate replaces the
 Discrete Interaction Approximation (DIA) as a new source-term option (`NL6`)
 and is evaluated at run time through the ONNX Runtime C API.
 
-![Build and run the ML surrogate in one command](media/quickstart_run.gif)
+![Build and run the ML surrogate in one command](media/onecommand_run.gif)
 
 *One command from a clean machine: install prerequisites, clone, build, and run a
 1-hour global WAVEWATCH III simulation with the ML-Lite `S_nl` surrogate
