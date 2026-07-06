@@ -1,12 +1,12 @@
 &FORCING_NML
   FORCING%TIMESTART      = '20250101 000000'
-  FORCING%TIMESTOP       = '20250115 000000'
+  FORCING%TIMESTOP       = '20250102 000000'
   FORCING%FIELD%WINDS    = T
   FORCING%GRID%ASIS      = T
   FORCING%GRID%LATLON    = T
 /
 &FILE_NML
-  FILE%FILENAME          = 'wind_1deg_global_20250101to15.nc'
+  FILE%FILENAME          = 'wind_example.nc'
   FILE%LONGITUDE         = 'longitude'
   FILE%LATITUDE          = 'latitude'
   FILE%VAR(1)            = 'u10'

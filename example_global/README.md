@@ -8,36 +8,36 @@ networks); ML-FiLM is for idealized finite-depth cases, not global runs.
 ## Files
 - `ww3_grid.nml`, `namelists_Global-real.nml`  grid + spectral definition
 - `Global-real.depth`                           1-degree global bathymetry
-- `ww3_prnc.nml`                                wind-forcing conversion config
-- `ww3_shel.nml`                                run config (period, output)
-- `points.list`                                output points
-- `download_era5_wind.py`                       fetch + remap ERA5 winds (needs a CDS account)
+- `wind_example.nc`                             real ERA5 10 m wind, 2025-01-01 (24 h) — bundled
+- `ww3_prnc.nml`, `ww3_shel.nml`, `points.list` run configuration
+- `download_era5_wind.py`                       (optional) fetch the full multi-day ERA5 wind
 - `run_global.sh`                              build-and-run helper
 
 ## Run it
 
-The wind download needs a free Copernicus CDS account. Create one at
-<https://cds.climate.copernicus.eu>, then put your key in `~/.cdsapirc`:
-```
-url: https://cds.climate.copernicus.eu/api
-key: <your-api-key>
-```
-
-Then copy-paste this block (prerequisites, code, wind, build, run ML-Lite):
+A real ERA5 wind for 2025-01-01 (24 h, the field used in the paper) is bundled
+as `wind_example.nc`, so this runs out of the box — no account or download:
 
 ```sh
-sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git python3-venv
-git clone https://github.com/Jialunx/WW3-ML-Snl.git
-cd WW3-ML-Snl/example_global
-
-# get the wind (installs the Python deps in a virtualenv; Ubuntu blocks system pip)
-python3 -m venv ~/cds-venv
-~/cds-venv/bin/pip install cdsapi xarray netcdf4
-~/cds-venv/bin/python download_era5_wind.py     # -> wind_1deg_global_20250101to15.nc
-
-# build (if needed) and run with ML-Lite
+sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl git
+git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example_global
 bash run_global.sh                              # MODEL=unet_faster_24x40_base32_deep.onnx bash run_global.sh  for ML
 ```
+
+`run_global.sh` downloads ONNX Runtime, builds if needed, then runs
+`ww3_grid -> ww3_prnc -> ww3_shel` with the bundled wind. It cold-starts from
+calm and spins up under the wind; field output is written to `ww3.*.nc`.
+
+### Full paper period (optional)
+
+The bundled wind covers one day. For the full 14-day period, download the real
+ERA5 wind (free Copernicus CDS account; put your key in `~/.cdsapirc`):
+```sh
+python3 -m venv ~/cds-venv && ~/cds-venv/bin/pip install cdsapi xarray netcdf4
+~/cds-venv/bin/python download_era5_wind.py     # -> wind_1deg_global_20250101to15.nc
+```
+Then set `FILE%FILENAME` in `ww3_prnc.nml` to that file, widen
+`FORCING%TIMESTOP` and `DOMAIN%STOP`, and rerun.
 
 `run_global.sh` downloads ONNX Runtime, builds if not already built, then runs
 `ww3_grid -> ww3_prnc -> ww3_shel`. It cold-starts from calm and spins up under
