@@ -28,7 +28,7 @@ and uses a two-input (spectrum + depth) module, provided in
 
 *Global significant wave height over 14 days (January 2025): the WRT reference
 (left) and the ML-Lite `S_nl` surrogate (right) running inside WAVEWATCH III. The
-surrogate reproduces the WRT field at ~53x lower cost and ~2.5x the cost of DIA.*
+surrogate reproduces the WRT field at ~53x lower cost (2.5x the cost of DIA).*
 
 ## Quick start
 
@@ -80,14 +80,6 @@ first output is an already-developed global wave field rather than a calm sea;
 this is the run shown in the animation above. Set `WARM=0 bash run_global.sh` to
 cold-start from calm instead. For a lighter local check, `example_fetch/` runs a
 small fetch-limited basin with homogeneous wind in about 30 seconds.
-
-Measured cost for one simulated hour of the global run (8-core desktop):
-
-| `S_nl` method | Wall time / sim-hour | vs DIA |
-|---------------|----------------------|--------|
-| DIA (`NL1`)      | ~39 s   | 1.0x   |
-| ML-Lite (`NL6`)  | ~98 s   | 2.5x   |
-| WRT (`NL2`)      | ~5170 s | 131x   |
 
 ## Output
 
