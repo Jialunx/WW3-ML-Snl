@@ -1,0 +1,13 @@
+{
+  "title": "WW3-ML-Snl: machine-learning surrogate for the nonlinear four-wave interaction in WAVEWATCH III",
+  "upload_type": "software",
+  "description": "WAVEWATCH III coupled with a machine-learning surrogate for the nonlinear four-wave interaction (S_nl), added as an NL6 source term evaluated at run time through ONNX Runtime. Includes three trained surrogates (ML and ML-Lite depth-scaled networks, and the depth-conditioned finite-depth ML-FiLM network), the ONNX Runtime wrappers, and the training notebooks.",
+  "creators": [
+    {"name": "Chen, Jialun", "affiliation": "University of Oxford"},
+    {"name": "Adcock, Thomas A. A.", "affiliation": "University of Oxford"},
+    {"name": "Liu, Qingxiang", "affiliation": "Ocean University of China"},
+    {"name": "Clark, Ronald", "affiliation": "University of Oxford"},
+    {"name": "Tang, Tianning", "affiliation": "University of Manchester"}
+  ],
+  "keywords": ["WAVEWATCH III", "ocean waves", "nonlinear four-wave interaction", "machine learning", "surrogate model", "ONNX"]
+}
