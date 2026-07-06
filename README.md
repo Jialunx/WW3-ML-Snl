@@ -25,7 +25,7 @@ and uses a two-input (spectrum + depth) module, provided in
 surrogate reproduces the WRT field at ~53x lower cost (and ~2.5x the cost of DIA
 for the lightweight ML-Lite variant).*
 
-![Build and run the ML surrogate from a clean machine](media/demo.gif)
+![Build and run the ML surrogate from a clean machine](media/terminal_demo.gif)
 
 *Demo: WAVEWATCH III on a 1-degree global grid, a 1-hour run with the ML-Lite surrogate.*
 
