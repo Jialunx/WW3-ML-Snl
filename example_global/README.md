@@ -33,8 +33,19 @@ the wind; field output is written to `ww3.*.nc`.
 
 Already have the repo? Just `cd example_global && python download_era5_wind.py && bash run_global.sh`.
 
-Or run the stages manually (with `ORT` = your ONNX Runtime dir):
+Or run the stages manually. You must **build first**, else the `mpirun` lines
+fail with "could not access or execute ../build/bin/ww3_grid".
 ```sh
+# 1. build (from the repo root, one level up)
+cd ..
+ORT_VER=1.20.1
+curl -L https://github.com/microsoft/onnxruntime/releases/download/v${ORT_VER}/onnxruntime-linux-x64-${ORT_VER}.tgz | tar xz
+export ORT=$PWD/onnxruntime-linux-x64-${ORT_VER}
+cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT
+cmake --build build -j          # wait for "Built target ww3_shel"
+
+# 2. run (from this folder; wind must already be downloaded)
+cd example_global
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
 mpirun -np 1 ../build/bin/ww3_grid     # -> mod_def.ww3

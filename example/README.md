@@ -28,9 +28,23 @@ Files:
 - `ww3_shel.nml`  1-hour run, homogeneous 20 m/s wind
 - `points.list`   output points
 
-Run (from this folder, after building with `-DSWITCH=NL6_ML -DORT_ROOT=...`):
+### Manual steps (alternative to `run.sh`)
+
+You must **build first**, then run. The `mpirun` lines fail with
+"could not access or execute ../build/bin/ww3_grid" if the build step was
+skipped.
 
 ```sh
+# 1. build (from the repo root, one level up)
+cd ..
+ORT_VER=1.20.1
+curl -L https://github.com/microsoft/onnxruntime/releases/download/v${ORT_VER}/onnxruntime-linux-x64-${ORT_VER}.tgz | tar xz
+export ORT=$PWD/onnxruntime-linux-x64-${ORT_VER}
+cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT
+cmake --build build -j          # wait for "Built target ww3_shel"
+
+# 2. run (from this example folder)
+cd example
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx   # ML-Lite
 mpirun -np 1 ../build/bin/ww3_grid
