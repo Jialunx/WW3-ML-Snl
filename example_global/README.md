@@ -14,22 +14,26 @@ networks); ML-FiLM is for idealized finite-depth cases, not global runs.
 - `download_era5_wind.py`                       fetch + remap ERA5 winds (needs a CDS account)
 - `run_global.sh`                              build-and-run helper
 
-## Steps
+## Run it
 
-Build the package first (top-level README quick start), then from this folder:
-
+Install the prerequisites once:
 ```sh
-export ORT=/path/to/onnxruntime          # same ONNX Runtime used to build
-
+sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl python3-pip
+```
+Then, from this folder:
+```sh
 # 1. get the wind (free Copernicus CDS account required)
 pip install cdsapi xarray netcdf4
 python download_era5_wind.py             # -> wind_1deg_global_20250101to15.nc
 
-# 2. run with ML-Lite (or MODEL=unet_faster_24x40_base32_deep.onnx for ML)
-bash run_global.sh
+# 2. build (if needed) and run with ML-Lite
+bash run_global.sh                       # MODEL=unet_faster_24x40_base32_deep.onnx bash run_global.sh  for ML
 ```
+`run_global.sh` downloads ONNX Runtime, builds if not already built, then runs
+`ww3_grid -> ww3_prnc -> ww3_shel`. It cold-starts from calm and spins up under
+the wind; field output is written to `ww3.*.nc`.
 
-Or run the stages manually:
+Or run the stages manually (with `ORT` = your ONNX Runtime dir):
 ```sh
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx

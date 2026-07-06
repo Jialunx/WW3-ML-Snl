@@ -5,6 +5,21 @@ rectangular basin (122 x 5 cells) forced from rest by a uniform 20 m/s wind,
 run for 1 hour. The spectral grid is 24 directions x 40 frequencies
 (`f0 = 0.03453 Hz`, ratio 1.1), which the trained networks require.
 
+## Run it
+
+Install the prerequisites once:
+```sh
+sudo apt install -y build-essential gfortran cmake libopenmpi-dev libnetcdf-dev libnetcdff-dev curl
+```
+Then, from this folder:
+```sh
+bash run.sh
+```
+`run.sh` downloads ONNX Runtime, builds the model (if not already built), and
+runs the case with ML-Lite. Use `MODEL=unet_faster_24x40_base32_deep.onnx bash run.sh`
+for ML. A successful run ends with `End of program` and writes `ww3.*` outputs
+here.
+
 Files:
 - `ww3_grid.inp`  grid + spectral definition
 - `basin8.bot`, `basin8.mask`  bathymetry and mask
