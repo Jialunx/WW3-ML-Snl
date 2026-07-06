@@ -18,6 +18,8 @@ share one single-input module. ML-FiLM emulates the finite-depth WRT directly
 and uses a two-input (spectrum + depth) module, provided in
 `finite_depth_film/` as a drop-in variant.
 
+![Build and run the ML surrogate from a clean machine](demo.gif)
+
 ## Quick start
 
 Requires a Fortran and C compiler, CMake, MPI, and NetCDF.
