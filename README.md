@@ -18,6 +18,39 @@ share one single-input module. ML-FiLM emulates the finite-depth WRT directly
 and uses a two-input (spectrum + depth) module, provided in
 `finite_depth_film/` as a drop-in variant.
 
+## Quick start
+
+Requires a Fortran and C compiler, CMake, MPI, and NetCDF. The block below
+downloads ONNX Runtime, builds with the ML surrogate, and runs the bundled
+example (`example/`) with ML-Lite:
+
+```sh
+# 1. get the code
+git clone https://github.com/Jialunx/WW3-ML-Snl.git
+cd WW3-ML-Snl
+
+# 2. get ONNX Runtime (prebuilt, CPU)
+ORT_VER=1.20.1
+curl -L https://github.com/microsoft/onnxruntime/releases/download/v${ORT_VER}/onnxruntime-linux-x64-${ORT_VER}.tgz | tar xz
+export ORT=$PWD/onnxruntime-linux-x64-${ORT_VER}
+
+# 3. build with the ML surrogate (NL6)
+cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT
+cmake --build build -j
+
+# 4. run the example with ML-Lite
+cd example
+export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
+export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
+mpirun -np 1 ../build/bin/ww3_grid
+mpirun -np 1 ../build/bin/ww3_strt
+mpirun -np 1 ../build/bin/ww3_shel
+```
+
+A successful run prints `[ort_wrapper] rank 0: ort_forward calls = ...` and
+`End of program`. For ML use `unet_faster_24x40_base32_deep.onnx`; the ML-FiLM
+model needs the finite-depth build (see `finite_depth_film/`).
+
 ## Repository layout
 
 ```
