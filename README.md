@@ -93,6 +93,21 @@ The gridded file holds the bulk parameters listed in `FIELD%LIST` in
 The point file (`ww3.*_spec.nc`) holds the 2-D spectrum `F(f,theta)` at the
 stations in `points.list`.
 
+### Source terms (including the ML `S_nl`)
+
+Source terms come from the point output with `POINT%TYPE = 3`. Each example
+ships a `ww3_ounp_src.nml` for this:
+
+```sh
+cp ww3_ounp_src.nml ww3_ounp.nml
+mpirun -np 1 ../build/bin/ww3_ounp    # -> ww3.YYYYMM_src.nc
+```
+
+`ww3.*_src.nc` contains `snl` (the ML `S_nl`), `sin` (wind input), `sds`
+(dissipation), `stt` (total), and `efth` (spectrum), each as `F(f,theta)` at the
+`points.list` stations. `ww3_ounp`/`ww3_ounf` also load the surrogate, so keep
+`WW3_SNL_ONNX_MODEL` and `LD_LIBRARY_PATH` set when running them.
+
 ## Repository layout
 
 ```
