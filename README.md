@@ -60,6 +60,13 @@ A successful run prints `[ort_wrapper] rank 0: ort_forward calls = ...` and
 `End of program`. For ML use `unet_faster_24x40_base32_deep.onnx`; the ML-FiLM
 model needs the finite-depth build (see `finite_depth_film/`).
 
+## Global runs
+
+The same build runs at global scale (real 1-degree grid, ERA5 wind). Nothing
+about the surrogate changes; only the grid and forcing do. See
+`example_global/` for a ready-to-run realistic global case (1-hour test up to a
+one-month run, ML or ML-Lite).
+
 ## Repository layout
 
 ```
