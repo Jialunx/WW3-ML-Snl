@@ -18,12 +18,12 @@ share one single-input module. ML-FiLM emulates the finite-depth WRT directly
 and uses a two-input (spectrum + depth) module, provided in
 `finite_depth_film/` as a drop-in variant.
 
-![Global significant wave height from the ML-Lite S_nl surrogate in WAVEWATCH III](media/hs_global_mllite.gif)
+![Global Hs: WRT reference vs the ML surrogate in WAVEWATCH III](media/hs_global_wrt_ml.gif)
 
-*Global significant wave height from the ML-Lite `S_nl` surrogate running inside
-WAVEWATCH III, warm-started from the paper's ERA5 spin-up state (January 2025).
-On an 8-core desktop this is ~2.5x the cost of DIA and ~53x faster than the WRT
-reference, at WRT-level accuracy.*
+*Global significant wave height over 14 days (January 2025): the WRT reference
+(left) and the ML `S_nl` surrogate (right) running inside WAVEWATCH III. The
+surrogate reproduces the WRT field at ~53x lower cost (and ~2.5x the cost of DIA
+for the lightweight ML-Lite variant).*
 
 ![Build and run the ML surrogate from a clean machine](demo.gif)
 
