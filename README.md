@@ -25,7 +25,7 @@ and uses a two-input (spectrum + depth) module, provided in
 Requires a Fortran and C compiler, CMake, MPI, and NetCDF.
 
 **One command** (clone, then run the helper script that downloads ONNX Runtime,
-builds, and runs the example with ML-Lite):
+builds, and runs a 1-hour global example with ML-Lite):
 
 ```sh
 git clone https://github.com/Jialunx/WW3-ML-Snl.git
@@ -49,25 +49,23 @@ export ORT=$PWD/onnxruntime-linux-x64-${ORT_VER}
 cmake -S . -B build -DSWITCH=NL6_ML -DORT_ROOT=$ORT
 cmake --build build -j
 
-# 4. run the example with ML-Lite
-cd example_fetch
+# 4. run the 1-hour global example with ML-Lite
+cd example_global
 export LD_LIBRARY_PATH=$ORT/lib:$LD_LIBRARY_PATH
 export WW3_SNL_ONNX_MODEL=$PWD/../ml_models/unet_faster_24x40_base16.onnx
-mpirun -np 1 ../build/bin/ww3_grid
-mpirun -np 1 ../build/bin/ww3_strt
-mpirun -np 1 ../build/bin/ww3_shel
+mpirun -np 1 ../build/bin/ww3_grid     # -> mod_def.ww3
+mpirun -np 1 ../build/bin/ww3_prnc     # bundled ERA5 wind -> wind.ww3
+mpirun -np 4 ../build/bin/ww3_shel     # ML computes S_nl
 ```
 
 A successful run prints `[ort_wrapper] rank 0: ort_forward calls = ...` and
 `End of program`. For ML use `unet_faster_24x40_base32_deep.onnx`; the ML-FiLM
 model needs the finite-depth build (see `finite_depth_film/`).
 
-## Global runs
-
-The same build runs at global scale (real 1-degree grid, ERA5 wind). Nothing
-about the surrogate changes; only the grid and forcing do. See
-`example_global/` for a ready-to-run realistic global case (1-hour test up to a
-one-month run, ML or ML-Lite).
+The global example (`example_global/`) uses a real 1-degree grid with a bundled
+ERA5 wind field, and can run from a 1-hour test up to a multi-day period (set
+`DOMAIN%STOP` in `ww3_shel.nml`). For a lighter local check, `example_fetch/`
+runs a small fetch-limited basin with homogeneous wind in about 30 seconds.
 
 ## Output
 
