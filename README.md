@@ -22,7 +22,7 @@ and uses a two-input (spectrum + depth) module, provided in
 
 Requires a Fortran and C compiler, CMake, MPI, and NetCDF.
 
-**One command** (clone, then run the helper script — downloads ONNX Runtime,
+**One command** (clone, then run the helper script that downloads ONNX Runtime,
 builds, and runs the example with ML-Lite):
 
 ```sh

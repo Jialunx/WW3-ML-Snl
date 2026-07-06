@@ -1,16 +1,16 @@
-# Global example — 1-degree global run
+# Global example: 1-degree global run
 
 ML `S_nl` surrogate on a realistic global grid (1 deg, 360 x 181), forced by
 ERA5 wind. Spectral grid is 24 x 40 (fixed by the networks). Use ML or ML-Lite;
 ML-FiLM is for finite-depth idealized cases only.
 
 ## Files
-- `ww3_grid.nml`, `namelists_Global-real.nml` — grid + spectral definition
-- `Global-real.depth` — 1-degree global bathymetry
-- `wind_example.nc` — real ERA5 wind, 2025-01-01 (24 h), bundled
-- `ww3_prnc.nml`, `ww3_shel.nml`, `points.list` — run configuration
-- `run_global.sh` — build-and-run helper
-- `download_era5_wind.py` — optional, for the full multi-day ERA5 wind
+- `ww3_grid.nml`, `namelists_Global-real.nml`: grid + spectral definition
+- `Global-real.depth`: 1-degree global bathymetry
+- `wind_example.nc`: real ERA5 wind, 2025-01-01 (24 h), bundled
+- `ww3_prnc.nml`, `ww3_shel.nml`, `points.list`: run configuration
+- `run_global.sh`: build-and-run helper
+- `download_era5_wind.py`: optional, for the full multi-day ERA5 wind
 
 ## Run
 

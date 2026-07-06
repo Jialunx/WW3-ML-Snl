@@ -1,4 +1,4 @@
-# Example case — fetch-limited basin (24x40)
+# Example case: fetch-limited basin (24x40)
 
 Self-contained case for the ML `S_nl` surrogate: a shallow (8 m) basin
 (122 x 5 cells) forced from rest by a uniform 20 m/s wind for 1 hour. Spectral
@@ -17,11 +17,11 @@ git clone https://github.com/Jialunx/WW3-ML-Snl.git && cd WW3-ML-Snl/example_fet
 `cd example_fetch && bash run.sh`.
 
 ## Files
-- `ww3_grid.inp` — grid + spectral definition
-- `basin8.bot`, `basin8.mask` — bathymetry and mask
-- `ww3_strt.inp` — initial condition
-- `ww3_shel.nml` — 1-hour run, homogeneous 20 m/s wind
-- `points.list` — output points
+- `ww3_grid.inp`: grid + spectral definition
+- `basin8.bot`, `basin8.mask`: bathymetry and mask
+- `ww3_strt.inp`: initial condition
+- `ww3_shel.nml`: 1-hour run, homogeneous 20 m/s wind
+- `points.list`: output points
 
 ## Manual build and run
 
