@@ -20,6 +20,8 @@ and uses a two-input (spectrum + depth) module, provided in
 
 ![Build and run the ML surrogate from a clean machine](demo.gif)
 
+*Demo: WAVEWATCH III on a 1-degree global grid, a 1-hour run with the ML-Lite surrogate.*
+
 ## Quick start
 
 Requires a Fortran and C compiler, CMake, MPI, and NetCDF.
