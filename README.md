@@ -9,7 +9,7 @@ and is evaluated at run time through the ONNX Runtime C API.
 
 *One command from a clean machine: install prerequisites, clone, build, and run a
 1-hour global WAVEWATCH III simulation with the ML-Lite `S_nl` surrogate
-(playback sped up 3x).*
+(playback sped up 4x).*
 
 Three trained surrogates are bundled:
 
