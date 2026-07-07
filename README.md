@@ -19,10 +19,10 @@ Three trained surrogates are bundled:
 | ML-Lite  | `unet_faster_24x40_base16.onnx`      | Lightweight U-Net (16/32 ch), tuned for fast inference |
 | ML-FiLM  | `cond_unet_film_24x40.onnx`          | Depth-conditioned U-Net, reproduces the finite-depth interaction |
 
-ML and ML-Lite emulate the depth-scaled Webb-Resio-Tracy (WRT) transfer and
-share one single-input module. ML-FiLM emulates the finite-depth WRT directly
-and uses a two-input (spectrum + depth) module, provided in
-`finite_depth_film/` as a drop-in variant.
+ML and ML-Lite emulate the depth-scaled Webb-Resio-Tracy (WRT) transfer
+(IQTYPE 2) and share one single-input module. ML-FiLM emulates the finite-depth
+WRT (IQTYPE 3) directly and uses a two-input (spectrum + depth) module, provided
+in `finite_depth_film/` as a drop-in variant.
 
 ![Global Hs: WRT reference vs the ML-Lite surrogate in WAVEWATCH III](media/hs_global_wrt_mllite.gif)
 
