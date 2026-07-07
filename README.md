@@ -15,9 +15,9 @@ Three trained surrogates are bundled:
 
 | Model | File (`ml_models/`) | Description |
 |-------|---------------------|-------------|
-| ML       | `unet_faster_24x40_base32_deep.onnx` | Base U-Net (32/64/128 ch), depth-scaled, tuned for accuracy |
-| ML-Lite  | `unet_faster_24x40_base16.onnx`      | Lightweight U-Net (16/32 ch), tuned for fast inference |
-| ML-FiLM  | `cond_unet_film_24x40.onnx`          | Depth-conditioned U-Net, reproduces the finite-depth interaction |
+| ML       | `unet_faster_24x40_base32_deep.onnx` | Base surrogate (32/64/128 ch), depth-scaled, tuned for accuracy |
+| ML-Lite  | `unet_faster_24x40_base16.onnx`      | Lightweight surrogate (16/32 ch), tuned for fast inference |
+| ML-FiLM  | `cond_unet_film_24x40.onnx`          | Depth-conditioned surrogate, reproduces the finite-depth interaction |
 
 ML and ML-Lite emulate the depth-scaled Webb-Resio-Tracy (WRT) transfer
 (IQTYPE 2) and share one single-input module. ML-FiLM emulates the finite-depth
